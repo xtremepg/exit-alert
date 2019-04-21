@@ -12,6 +12,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 require_once __DIR__ . '/config-dependencies.php';
 require_once __DIR__ . '/installer.php';
+defineDbName();
 register_activation_hook( __FILE__, 'EA_install' );
 register_deactivation_hook(__FILE__, 'EA_uninstall');
 

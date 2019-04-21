@@ -1,9 +1,12 @@
 <?php
+function defineDbName() {
+    global $wpdb;
+    define('TABLE_NAME', $wpdb->prefix . "ea_messages");
+}
 function EA_install() {
 	global $wpdb;
     $charset_collate = $wpdb->get_charset_collate();
-    $table_name = $wpdb->prefix . "ea_messages";
-    $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+    $sql = "CREATE TABLE IF NOT EXISTS ". TABLE_NAME ." (
         `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
         `title` varchar(255) NOT NULL,
         `message` TEXT NOT NULL,
@@ -20,12 +23,11 @@ function EA_install() {
 function EA_uninstall() {
 	global $wpdb;
     $charset_collate = $wpdb->get_charset_collate();
-    $table_name = $wpdb->prefix."ea_messages";
-    $sql = "DELETE FROM $table_name";
+    $sql = "DELETE FROM ". TABLE_NAME ."";
     $wpdb->query($sql); 
-    $sql = $wpdb->get_results('SELECT id FROM '.$table_name.' LIMIT 1');
+    $sql = $wpdb->get_results('SELECT id FROM '. TABLE_NAME .' LIMIT 1');
     if(empty($sql)){
-    	$sql = "DROP TABLE IF EXISTS $table_name";
+    	$sql = "DROP TABLE IF EXISTS ". TABLE_NAME ."";
     	$wpdb->query($sql);
     }
 }

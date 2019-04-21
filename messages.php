@@ -21,8 +21,7 @@ global $wpdb;
 
 if (ISSET($_GET['action']) && $_GET['action'] == 'delete') {
     $id = $_GET['id'];
-    $page_name = $wpdb->prefix . "exit_alert_messages";
-    $wpdb->delete($page_name, array('id' => $id));
+    $wpdb->delete(TABLE_NAME, array('id' => $id));
     echo "<script>window.location.href = 'admin.php?page=ea-messages';</script>";
 }
 
@@ -32,13 +31,12 @@ if (ISSET($_POST['page_id'])) {
     $title = $_POST['title'];
     $message = $_POST['message'];
     $page_redirect = $_POST['page_redirect'];
-    $table_name = $wpdb->prefix . "exit_alert_messages";
     if(!empty($id)){
-        $wpdb->update($table_name, array('title' => $title, 'message' => $message, 'page_id' => $page_id, 'page_redirect' => $page_redirect), array('id' => $id));
+        $wpdb->update(TABLE_NAME, array('title' => $title, 'message' => $message, 'page_id' => $page_id, 'page_redirect' => $page_redirect), array('id' => $id));
     }else{
-        $sql = $wpdb->get_results('SELECT id FROM '.$table_name.' WHERE page_id='.$page_id.' LIMIT 1');
+        $sql = $wpdb->get_results('SELECT id FROM '. TABLE_NAME .' WHERE page_id='.$page_id.' LIMIT 1');
         if(empty($sql)) {
-            $wpdb->insert($table_name, array('title' => $title, 'message' => $message, 'page_id' => $page_id, 'page_redirect' => $page_redirect));
+            $wpdb->insert(TABLE_NAME, array('title' => $title, 'message' => $message, 'page_id' => $page_id, 'page_redirect' => $page_redirect));
         } else {
             ?>
                 <script>
@@ -62,7 +60,7 @@ if (ISSET($_POST['page_id'])) {
             <form class="form" method="post">
                 <input type="hidden" name="id" id="id" />
                 <div class="form-group">
-                    <label for="page_id" class="label-control">Page</label>
+                    <label for="page_id" class="label-control">Page *</label>
                     <?php wp_dropdown_pages() ?>
                 </div>
                 <div class="form-group">
@@ -70,11 +68,11 @@ if (ISSET($_POST['page_id'])) {
                     <input type="text" name="page_redirect" id="page_redirect" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label class="control-label" for="title">Title</label>
+                    <label class="control-label" for="title">Title *</label>
                     <input type="text" name="title" id="title" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label class="control-label" for="message">Message</label>
+                    <label class="control-label" for="message">Message *</label>
                     <textarea name="message" id="message" class="form-control"></textarea>
                 </div>
                 <div class="form-group">
@@ -101,16 +99,14 @@ if (ISSET($_POST['page_id'])) {
                     </thead>
                     <tbody>
                     <?php
-                        $charset_collate = $wpdb->get_charset_collate();
-                        $page_name = $wpdb->prefix . "exit_alert_messages";
-                        $sql = "SELECT * FROM $page_name";
+                        $sql = "SELECT * FROM ". TABLE_NAME ."";
                         $messages = $wpdb->get_results($sql);
                         foreach($messages as $message) {
                         ?>
                             <tr>
                                 <td><?php echo $message->title ?></td>
                                 <td><?php echo $message->message ?></td>
-                                <td><?php echo get_post($message->page_id)->post_name ?></td>
+                                <td><a target="_BLANK" href="<?php echo get_post($message->page_id)->guid ?>"><?php echo get_post($message->page_id)->post_name ?></a></td>
                                 <td>
                                     <?php if ($message->redirect_page != null && $message->redirect_page != '') {
                                         ?>

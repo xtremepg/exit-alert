@@ -4,8 +4,7 @@ function shortcode_exit_message() {
     loadDependencies();
     $page_id = get_queried_object_id();
     $charset_collate = $wpdb->get_charset_collate();
-    $page_name = $wpdb->prefix . "exit_alert_messages";
-    $sql = "SELECT * FROM $page_name WHERE page_id=$page_id LIMIT 1";
+    $sql = "SELECT * FROM ". TABLE_NAME ." WHERE page_id=$page_id LIMIT 1";
     $message = $wpdb->get_results($sql)[0];
     if ($message != null) {
     ?>

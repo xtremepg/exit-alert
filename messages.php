@@ -108,7 +108,7 @@ if (ISSET($_POST['page_id'])) {
                                 <td><?php echo $message->message ?></td>
                                 <td><a target="_BLANK" href="<?php echo get_post($message->page_id)->guid ?>"><?php echo get_post($message->page_id)->post_name ?></a></td>
                                 <td>
-                                    <?php if ($message->redirect_page != null && $message->redirect_page != '') {
+                                    <?php if ($message->page_redirect != null && $message->page_redirect != '') {
                                         ?>
                                             <a target="_BLANK" href="http://<?php echo $message->page_redirect ?>" class="btn btn-sm btn-success external-link"><i class="fas fa-external-link-alt"></i></a>
                                         <?php

@@ -90,6 +90,7 @@ if (ISSET($_POST['page_id'])) {
                 <table class="table">
                     <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Title</th>
                         <th>Message</th>
                         <th>Page</th>
@@ -104,6 +105,7 @@ if (ISSET($_POST['page_id'])) {
                         foreach($messages as $message) {
                         ?>
                             <tr>
+                                <td><?php echo $message->id ?></td>
                                 <td><?php echo $message->title ?></td>
                                 <td><?php echo $message->message ?></td>
                                 <td><a target="_BLANK" href="<?php echo get_post($message->page_id)->guid ?>"><?php echo get_post($message->page_id)->post_name ?></a></td>

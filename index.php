@@ -21,3 +21,6 @@ add_action("admin_menu", "addMenu");
 
 require_once __DIR__ . '/shortcode.php';
 add_shortcode('exitMessage', 'shortcode_exit_message');
+
+require_once __DIR__ . '/show-message.php';
+add_action('wp_head', 'show_ea_message');

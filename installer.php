@@ -8,10 +8,13 @@ function EA_install() {
     $charset_collate = $wpdb->get_charset_collate();
     $sql = "CREATE TABLE IF NOT EXISTS ". TABLE_NAME ." (
         `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+        `image` varchar(255) DEFAULT NULL,
         `title` varchar(255) NOT NULL,
         `message` TEXT NOT NULL,
         `page_id` varchar(255) NOT NULL,
         `page_redirect` varchar(255) DEFAULT NULL,
+        `btn_confirm_text` varchar(255) NOT NULL,
+        `btn_cancel_text` varchar(255) NOT NULL,
         PRIMARY KEY (`id`) 
         ) $charset_collate ;";
 

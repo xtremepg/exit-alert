@@ -1,22 +1,13 @@
 <?php
 function loadDependencies() {
-    ?>
-    <link href="https://fonts.googleapis.com/css?family=Hind" rel="stylesheet"> 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@8.8.5/dist/sweetalert2.min.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8.8.5/dist/sweetalert2.min.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script>
-    <style>
-        body {
-            font-family: 'Hind', sans-serif;
-        }
-        .swal2-title:before {
-            content: none;
-        }
-    </style>
-    <?php
+    wp_enqueue_style('ea-font-awesome', 'https://use.fontawesome.com/releases/v5.7.0/css/all.css');
+    wp_enqueue_style('ea-swal-css', 'https://cdn.jsdelivr.net/npm/sweetalert2@8.8.5/dist/sweetalert2.min.css');
+    wp_enqueue_style('ea-bootstrap4-css', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css');
+    wp_enqueue_style('ea-custom-css', '/' . PLUGINDIR . '/exit-alert/assets/css/ea-custom.css');
+
+    wp_enqueue_script('ea-jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js');
+    wp_enqueue_script('ea-popper', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js');
+    wp_enqueue_script('ea-bootstrap4', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js');
+    wp_enqueue_script('ea-swal2', 'https://cdn.jsdelivr.net/npm/sweetalert2@8.8.5/dist/sweetalert2.min.js');
+    wp_enqueue_script('ea-ckeditor5', 'https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js');
 }

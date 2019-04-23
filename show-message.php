@@ -1,11 +1,8 @@
 <?php
 function show_ea_message() {
-    global $wpdb;
     loadDependencies();
     $page_id = get_queried_object_id();
-    $charset_collate = $wpdb->get_charset_collate();
-    $sql = "SELECT * FROM ". TABLE_NAME ." WHERE page_id=$page_id LIMIT 1";
-    $message = $wpdb->get_results($sql)[0];
+    $message = ExitAlert::getMessageToShow($page_id);
     if ($message != null) {
     ?>
         <script>

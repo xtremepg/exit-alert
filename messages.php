@@ -17,39 +17,11 @@
 <!-- /Custom Styles -->
 <!-- Messages Save, Edit and Delete -->
 <?php
-global $wpdb;
-
-if (ISSET($_GET['action']) && $_GET['action'] == 'delete') {
-    $id = $_GET['id'];
-    $wpdb->delete(TABLE_NAME, array('id' => $id));
-    echo "<script>window.location.href = 'admin.php?page=ea-messages';</script>";
-}
-
-if (ISSET($_POST['page_id'])) {
-    $id = $_POST['id'];
-    $page_id = $_POST['page_id'];
-    $title = $_POST['title'];
-    $message = $_POST['message'];
-    $page_redirect = $_POST['page_redirect'];
-    if(!empty($id)){
-        $wpdb->update(TABLE_NAME, array('title' => $title, 'message' => $message, 'page_id' => $page_id, 'page_redirect' => $page_redirect), array('id' => $id));
-    }else{
-        $sql = $wpdb->get_results('SELECT id FROM '. TABLE_NAME .' WHERE page_id='.$page_id.' LIMIT 1');
-        if(empty($sql)) {
-            $wpdb->insert(TABLE_NAME, array('title' => $title, 'message' => $message, 'page_id' => $page_id, 'page_redirect' => $page_redirect));
-        } else {
-            ?>
-                <script>
-                    Swal.fire({
-                        type: 'error',
-                        title: 'Oops...',
-                        text: 'You already have a message for this page! Please select other page to continue.',
-                    })
-                </script>
-            <?php
-        }
+    if (ISSET($_GET['action']) && $_GET['action'] == 'delete') {
+        ExitAlert::deleteMessage();
+    } else if (ISSET($_POST['page_id'])) {
+        ExitAlert::saveMessage();
     }
-}
 ?>
 <!-- /Messages Save, Edit and Delete -->
 <!-- Messages Form -->
@@ -100,15 +72,21 @@ if (ISSET($_POST['page_id'])) {
                     </thead>
                     <tbody>
                     <?php
-                        $sql = "SELECT * FROM ". TABLE_NAME ."";
-                        $messages = $wpdb->get_results($sql);
-                        foreach($messages as $message) {
+                        foreach(ExitAlert::getAllMessages() as $message) {
                         ?>
                             <tr>
                                 <td><?php echo $message->id ?></td>
                                 <td><?php echo $message->title ?></td>
                                 <td><?php echo $message->message ?></td>
-                                <td><a target="_BLANK" href="<?php echo get_post($message->page_id)->guid ?>"><?php echo get_post($message->page_id)->post_name ?></a></td>
+                                <td>
+                                    <?php if($message->page_id > 0) {
+                                        ?>
+                                            <a target="_BLANK" href="<?php echo get_post($message->page_id)->guid ?>"><?php echo get_post($message->page_id)->post_name ?></a>
+                                        <?php
+                                    } else {
+                                        echo 'All pages';
+                                    }?>
+                                </td>
                                 <td>
                                     <?php if ($message->page_redirect != null && $message->page_redirect != '') {
                                         ?>
@@ -154,6 +132,7 @@ if (ISSET($_POST['page_id'])) {
             console.error( error );
     } );
     $(document).ready(function() {
+        $('#page_id').append('<option value="0">All pages</option>')
         $('#page_id').addClass("form-control");
     });
     function deleteMessage(id) {

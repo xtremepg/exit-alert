@@ -15,19 +15,32 @@
             <form class="form" method="post" id="messageForm" enctype="multipart/form-data">
                 <input type="hidden" name="id" id="id" />
                 <div class="form-group">
+                    <label for="page_id" class="label-control">Page *</label>
+                    <?php wp_dropdown_pages() ?>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="force_redirect" class="control-label">Force Redirect</label>
+                            <select class="form-control text-center" name="force_redirect" id="force_redirect">
+                                <option value="true">Yes</option>
+                                <option value="false" selected>No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="control-label" for="page_redirect">Page to redirect</label>
+                            <input type="text" name="page_redirect" id="page_redirect" class="form-control" placeholder="www.somesite.com/somepage">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="image" class="control-label">Image</label>
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="image" name="image">
                         <label class="custom-file-label" for="image"></label>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="page_id" class="label-control">Page *</label>
-                    <?php wp_dropdown_pages() ?>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="page_redirect">Page to redirect</label>
-                    <input type="text" name="page_redirect" id="page_redirect" class="form-control" placeholder="www.somesite.com/somepage">
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="title">Title *</label>
@@ -39,15 +52,55 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <div class="form-group">
-                            <label for="btn-confirm-text" class="control-label">Confirm button text *</label>
-                            <input type="text" id="btn-confirm-text" name="btn-confirm-text" class="form-control" required/>
+                        <label>Confirm Button</label>
+                        <div class="row text-center">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="show_confirm_button" class="control-laabel">Show</label>
+                                    <select class="form-control text-center" name="show_confirm_button" id="show_confirm_button">
+                                        <option value="true" selected>Yes</option>
+                                        <option value="false">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="color_confirm_button" class="control-laabel">Color</label>
+                                    <input id="color_confirm_button" name="color_confirm_button" type="text" class="form-control color-picker" value="rgb(25, 61, 224)" />
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="btn_confirm_text" class="control-label">Text *</label>
+                                    <input type="text" id="btn_confirm_text" name="btn_confirm_text" class="form-control" required/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col">
-                        <div class="form-group">
-                            <label for="btn-cancel-text" class="control-label">Cancel button text *</label>
-                            <input type="text" id="btn-cancel-text" name="btn-cancel-text" class="form-control" required/>
+                        <label>Cancel Button</label>
+                        <div class="row text-center">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="show_cancel_button" class="control-label">Show</label>
+                                    <select class="form-control text-center" name="show_cancel_button" id="show_cancel_button">
+                                        <option value="true" selected>Yes</option>
+                                        <option value="false">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="color_cancel_button" class="control-laabel">Color</label>
+                                    <input id="color_cancel_button" name="color_cancel_button" type="text" class="form-control color-picker" value="rgb(240, 17, 17)" />
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="btn_cancel_text" class="control-label">Text *</label>
+                                    <input type="text" id="btn_cancel_text" name="btn_cancel_text" class="form-control" required/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

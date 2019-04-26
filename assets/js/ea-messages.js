@@ -46,8 +46,20 @@ jQuery(function($){
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
         });
         /** Select Image */
+        /** Color Picker Config */
+        $('.color-picker').colorpicker();
+        updateColorPickerBackground();
+        $('.color-picker').on('colorpickerChange', function(event) {
+            $(this).css('background-color', event.color.toString());
+        });
+        /** //Color Picker Config */
     });
 });
+function updateColorPickerBackground() {
+    $('.color-picker').each((index, item) => {
+        $(item).css('background-color', item.value);
+    });
+}
 function deleteMessage(id) {
     Swal.fire({
         title: 'Are you sure?',
@@ -63,12 +75,24 @@ function deleteMessage(id) {
         }
     })
 }
-function editMessage(message) {        
+function editMessage(message) {
     $('#id').val(message.id);
     $('#page_id').val(message.page_id);
     $('#title').val(message.title);
-    editor.data.set(message.message);
+    $('#force_redirect').val(convertBitToBoolean(message.force_redirect));
     $('#page_redirect').val(message.page_redirect);
-    $('#btn-confirm-text').val(message.btn_confirm_text);
-    $('#btn-cancel-text').val(message.btn_cancel_text);
+    $('#show_confirm_button').val(convertBitToBoolean(message.show_confirm_button));
+    $('#color_confirm_button').val(message.color_confirm_button);
+    $('#btn_confirm_text').val(message.btn_confirm_text);    
+    $('#show_cancel_button').val(convertBitToBoolean(message.show_cancel_button));
+    $('#color_cancel_button').val(message.color_cancel_button);
+    $('#btn_cancel_text').val(message.btn_cancel_text);
+    editor.data.set(message.message);
+    updateColorPickerBackground();
+}
+function convertBitToBoolean(value) {
+    if (value == 1) {
+        return "true";
+    }
+    return "false";
 }

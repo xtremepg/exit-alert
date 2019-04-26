@@ -17,20 +17,23 @@ function show_ea_message() {
                         overlayOn();
                         Swal.fire({
                             title: '<?php echo $message->title ?>',
-                            type: 'question',
                             html: '<?php echo $message->message ?>',
                             imageUrl: '<?php echo $message->image ?>',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            allowEnterKey: false,
                             imageHeight: 150,
                             backdrop: false,
                             showCloseButton: false,
                             focusConfirm: false,
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
+                            showConfirmButton: <?php echo $message->show_confirm_button ?>,
+                            confirmButtonColor: '<?php echo $message->color_confirm_button ?>',
+                            confirmButtonText: '<?php echo $message->btn_confirm_text ?>',
+                            showCancelButton: <?php echo $message->show_cancel_button ?>,
+                            cancelButtonColor: '<?php echo $message->color_cancel_button ?>',
                             cancelButtonText: '<?php echo $message->btn_cancel_text ?>',
-                            confirmButtonText: '<?php echo $message->btn_confirm_text ?>'
                         }).then((result) => {
-                            if (result.value) {
+                            if (result.value || <?php echo $message->force_redirect ?>) {
                                 var page_redirect = '<?php echo $message->page_redirect ?>';
                                 if (page_redirect != null && page_redirect != '') {
                                     if (page_redirect.indexOf('http') == -1) {

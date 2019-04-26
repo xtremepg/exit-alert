@@ -12,8 +12,13 @@ function EA_install() {
         `title` varchar(255) NOT NULL,
         `message` TEXT NOT NULL,
         `page_id` varchar(255) NOT NULL,
+        `force_redirect` bit NOT NULL,
         `page_redirect` varchar(255) DEFAULT NULL,
+        `show_confirm_button` BIT NOT NULL,
+        `color_confirm_button` VARCHAR(255) NOT NULL,
         `btn_confirm_text` varchar(255) NOT NULL,
+        `show_cancel_button` BIT NOT NULL,
+        `color_cancel_button` VARCHAR(255) NOT NULL,
         `btn_cancel_text` varchar(255) NOT NULL,
         PRIMARY KEY (`id`) 
         ) $charset_collate ;";

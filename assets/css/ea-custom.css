@@ -27,3 +27,12 @@ a {
 .swal2-title:before {
     content: none;
 }
+.color-picker {
+    color: transparent !important;
+}
+.color-picker::selection{
+    color: transparent !important;
+}
+.color-picker:hover {
+    cursor: pointer;
+}

@@ -30,9 +30,14 @@ class ExitAlert {
         $page_id = $_POST['page_id'];
         $title = $_POST['title'];
         $message = $_POST['message'];
+        $force_redirect = ExitAlert::convertStringToBoolean($_POST['force_redirect']);
         $page_redirect = $_POST['page_redirect'];
-        $btn_confirm_text = $_POST['btn-confirm-text'];
-        $btn_cancel_text = $_POST['btn-cancel-text'];
+        $show_confirm_button = ExitAlert::convertStringToBoolean($_POST['show_confirm_button']);
+        $color_confirm_button = $_POST['color_confirm_button'];
+        $btn_confirm_text = $_POST['btn_confirm_text'];
+        $show_cancel_button = ExitAlert::convertStringToBoolean($_POST['show_cancel_button']);
+        $color_cancel_button = $_POST['color_cancel_button'];
+        $btn_cancel_text = $_POST['btn_cancel_text'];
         $image = NULL;
 
         if (!ExitAlert::checkIfPageAlreadyHaveMessage($id, $page_id)) {
@@ -44,8 +49,13 @@ class ExitAlert {
                     'title' => $title,
                     'message' => $message,
                     'page_id' => $page_id,
+                    'force_redirect' => $force_redirect,
                     'page_redirect' => $page_redirect,
+                    'show_confirm_button' => $show_confirm_button,
+                    'color_confirm_button' => $color_confirm_button,
                     'btn_confirm_text' => $btn_confirm_text,
+                    'show_cancel_button' => $show_cancel_button,
+                    'color_cancel_button' => $color_cancel_button,
                     'btn_cancel_text' => $btn_cancel_text),
                     array('id' => $id)
                 );
@@ -58,8 +68,13 @@ class ExitAlert {
                     'title' => $title,
                     'message' => $message,
                     'page_id' => $page_id,
+                    'force_redirect' => $force_redirect,
                     'page_redirect' => $page_redirect,
+                    'show_confirm_button' => $show_confirm_button,
+                    'color_confirm_button' => $color_confirm_button,
                     'btn_confirm_text' => $btn_confirm_text,
+                    'show_cancel_button' => $show_cancel_button,
+                    'color_cancel_button' => $color_cancel_button,
                     'btn_cancel_text' => $btn_cancel_text)
                 );
             }
@@ -100,5 +115,12 @@ class ExitAlert {
         $target_file = $target_dir . basename($files["image"]["name"]);
         move_uploaded_file($files["image"]["tmp_name"], $target_file);
         return wp_upload_dir()['url'] . '/' . basename($files["image"]["name"]);
+    }
+
+    public static function convertStringToBoolean($value) {
+        if ($value == 'true') {
+            return true;
+        }
+        return false;
     }
 }
